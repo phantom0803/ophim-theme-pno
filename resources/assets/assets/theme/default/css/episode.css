@@ -1,0 +1,77 @@
+.video-embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-embed-container iframe,
+.video-embed-container object,
+.video-embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#overlay-close {
+    width: 100px;
+    height: 32px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    position: absolute;
+    background: #ffeb3b;
+    text-align: center;
+    padding-top: 6px;
+    margin-right: 5px;
+}
+
+a.streaming-server {
+    cursor: pointer;
+    padding: 4px 8px;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+a.streaming-server:hover, a.streaming-server.active {
+    color: #fff;
+    background: #ff9e11;
+}
+
+.list-episodes li {
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 2px;
+}
+
+.list-episodes {
+    margin-left: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+}
+
+.list-episodes li a {
+    display: block;
+    color: #e5e5e5;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    padding: 7px 5px;
+    min-width: 83px;
+}
+
+.list-episodes li span {
+    display: block;
+    color: #08c;
+    border: 1px solid #707070;
+    border-radius: 3px;
+    padding: 7px 5px;
+    min-width: 83px;
+    background-color: #fff;
+}
+
