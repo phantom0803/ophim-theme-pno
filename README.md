@@ -24,6 +24,11 @@ https://github.com/hacoidev/ophim-core
 1. Tại thư mục của Project: `composer update ophimcms/theme-pno`
 2. Re-Activate giao diện trong Admin Panel
 
+## Note
+- Một vài lưu ý quan trọng của các nút chức năng:
+    + `Activate` và `Re-Activate` sẽ publish toàn bộ file js,css trong themes ra ngoài public của laravel.
+    + `Reset` reset lại toàn bộ cấu hình của themes
+    
 ## Document
 ### List
 - Trang chủ: `Label|relation|find_by_field|value|sort_by_field|sort_algo|limit|show_more_url`
