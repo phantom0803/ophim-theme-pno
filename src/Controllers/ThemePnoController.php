@@ -5,6 +5,7 @@ namespace Ophim\ThemePno\Controllers;
 use Backpack\Settings\app\Models\Setting;
 use Illuminate\Http\Request;
 use Ophim\Core\Models\Actor;
+use Ophim\Core\Models\Catalog;
 use Ophim\Core\Models\Category;
 use Ophim\Core\Models\Director;
 use Ophim\Core\Models\Episode;
@@ -249,29 +250,39 @@ class ThemePnoController
 
     public function getMovieOfType(Request $request, $slug)
     {
-        switch ($slug) {
-            case 'phim-de-cu':
-                $section_name = 'Phim Hot Đề Cử';
-                $movies = Movie::where('is_recommended', 1)->orderBy('created_at', 'desc')->paginate(36);
-                break;
-            case 'phim-chieu-rap':
-                $section_name = 'Phim Chiếu Rạp';
-                $movies = Movie::where('is_shown_in_theater', 1)->orderBy('created_at', 'desc')->paginate(36);
-                break;
-            case 'phim-sap-chieu':
-                $section_name = 'Phim Sắp Chiếu';
-                $movies = Movie::where('status', 'trailer')->orderBy('created_at', 'desc')->paginate(36);
-                break;
-            default:
-                $type = $slug == 'phim-le' ? 'single' : 'series';
-                $section_name = $slug == 'phim-le' ? 'Phim Lẻ' : 'Phim Bộ';
-                $movies = Movie::where('type', $type)->orderBy('created_at', 'desc')->paginate(36);
-                break;
+        /** @var Catalog */
+        $catalog = Catalog::fromCache()->find($slug);
+
+        if (is_null($catalog)) abort(404);
+
+        $catalog->generateSeoTags();
+
+        $cache_key = 'catalog.' . $catalog->id . '.page.' . $request['page'];
+        $movies = Cache::get($cache_key);
+        if(is_null($movies)) {
+            $value = explode('|', trim($catalog->value));
+            [$relation_config, $field, $val, $sortKey, $alg] = array_merge($value, ['', 'is_copyright', 0, 'created_at', 'desc']);
+            $relation_config = explode(',', $relation_config);
+
+            [$relation_table, $relation_field, $relation_val] = array_merge($relation_config, ['', '', '']);
+            try {
+                $movies = \Ophim\Core\Models\Movie::when($relation_table, function ($query) use ($relation_table, $relation_field, $relation_val, $field, $val) {
+                    $query->whereHas($relation_table, function ($rel) use ($relation_field, $relation_val, $field, $val) {
+                        $rel->where($relation_field, $relation_val)->where(array_combine(explode(",", $field), explode(",", $val)));
+                    });
+                })->when(!$relation_table, function ($query) use ($field, $val) {
+                    $query->where(array_combine(explode(",", $field), explode(",", $val)));
+                })
+                ->orderBy($sortKey, $alg)
+                ->paginate($catalog->paginate);
+
+                Cache::put($cache_key, $movies, setting('site_cache_ttl', 5 * 60));
+            } catch (\Exception $e) {}
         }
 
         return view('themes::themepno.catalog', [
             'data' => $movies,
-            'section_name' => "Danh sách $section_name"
+            'section_name' => "Danh sách $catalog->name"
         ]);
     }
 }
