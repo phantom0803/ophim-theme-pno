@@ -29,7 +29,7 @@
                                         <div class="row">
                                             <div class="col-md-3 m-t-10">
                                                 <img class="img-responsive" style="min-width: 100%;"
-                                                    src="{{ $currentMovie->thumb_url }}" alt="{{ $currentMovie->name }}">
+                                                    src="{{ $currentMovie->getThumbUrl() }}" alt="{{ $currentMovie->name }}">
 
                                                 <div class="block_watch">
                                                     @if ($watch_url)
@@ -47,25 +47,25 @@
                                                         <div class="box-rating">
                                                             <input id="hint_current" type="hidden" value="">
                                                             <input id="score_current" type="hidden"
-                                                                value="{{ number_format($currentMovie->rating_star ?? 0, 1) }}">
+                                                                value="{{$currentMovie->getRatingStar()}}">
                                                             <div id="star"
-                                                                data-score="{{ number_format($currentMovie->rating_star ?? 0, 1) }}"
+                                                                data-score="{{$currentMovie->getRatingStar()}}"
                                                                 style="cursor: pointer; float: left; width: 200px;">
                                                             </div>
                                                             <span id="hint"></span>
                                                             <div id="div_average"
                                                                 style="float:left; line-height:20px; margin:0 5px; ">(<span
                                                                     class="average"
-                                                                    id="average">{{ number_format($currentMovie->rating_star ?? 0, 1) }}</span>
+                                                                    id="average">{{$currentMovie->getRatingStar()}}</span>
                                                                 đ/<span id="rate_count"> /
-                                                                    {{ $currentMovie->rating_count ?? 0 }}</span> lượt)
+                                                                    {{$currentMovie->getRatingCount()}}</span> lượt)
                                                             </div>
                                                             <meta itemprop="aggregateRating" itemscope
                                                                 itemtype="https://schema.org/AggregateRating" />
                                                             <meta itemprop="ratingValue"
-                                                                content="{{ number_format($currentMovie->rating_star ?? 0, 1) }}" />
+                                                                content="{{$currentMovie->getRatingStar()}}" />
                                                             <meta itemprop="ratingcount"
-                                                                content="{{ $currentMovie->rating_count ?? 0 }}" />
+                                                                content="{{$currentMovie->getRatingCount()}}" />
                                                             <meta itemprop="bestRating" content="10" />
                                                             <meta itemprop="worstRating" content="1" />
                                                         </div>
@@ -183,7 +183,9 @@
                                     <span class="fadeInUp" data-wow-duration="0.8s"> Bình luận </span>
                                     <div class="disable-bottom-line" data-wow-duration="0.8s"></div>
                                 </div>
-                                <div class="fb-comments" style="background-color:white;" data-colorscheme="light" data-href="{{ $currentMovie->getUrl() }}" data-width="100%" data-numposts="10">
+                                <div style="width: 100%; background-color: #fff">
+                                    <div class="fb-comments" style="background-color:white;" data-colorscheme="light" data-href="{{ $currentMovie->getUrl() }}" data-width="100%" data-numposts="10">
+                                    </div>
                                 </div>
                             </div>
                         </div>

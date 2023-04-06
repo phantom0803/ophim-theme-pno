@@ -32,10 +32,32 @@ class ThemePnoServiceProvider extends ServiceProvider
                 'options' => [
                     [
                         'name' => 'recommendations_limit',
-                        'label' => 'Recommendations Limit',
+                        'label' => 'Recommended movies limit',
                         'type' => 'number',
-                        'hint' => 'Number',
                         'value' => 10,
+                        'wrapperAttributes' => [
+                            'class' => 'form-group col-md-4',
+                        ],
+                        'tab' => 'List'
+                    ],
+                    [
+                        'name' => 'per_page_limit',
+                        'label' => 'Pages limit',
+                        'type' => 'number',
+                        'value' => 18,
+                        'wrapperAttributes' => [
+                            'class' => 'form-group col-md-4',
+                        ],
+                        'tab' => 'List'
+                    ],
+                    [
+                        'name' => 'movie_related_limit',
+                        'label' => 'Movies related limit',
+                        'type' => 'number',
+                        'value' => 12,
+                        'wrapperAttributes' => [
+                            'class' => 'form-group col-md-4',
+                        ],
                         'tab' => 'List'
                     ],
                     [

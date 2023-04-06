@@ -3,7 +3,7 @@
         <div id="slider" class="swiper-container-horizontal">
             <div class="swiper-wrapper">
                 @foreach ($recommendations as $movie)
-                    <div class="swiper-slide" style="background-image: url('{{$movie->poster_url ?? $movie->thumb_url}}');">
+                    <div class="swiper-slide" style="background-image: url('{{$movie->getPosterUrl()}}');">
                         <a href="{{$movie->getUrl()}}" class="slide-link" title="{{$movie->name}}"></a>
                         <span class="slide-caption">
                             <h2>{{$movie->name}}</h2>
@@ -23,7 +23,7 @@
                                     <strong>Năm:</strong> {{$movie->publish_year}}
                                 </div>
                                 <div class="block">
-                                    <strong>Đánh giá:</strong> {{number_format($movie->rating_star ?? 0, 1)}} sao/{{$movie->rating_count ?? 0}} lượt
+                                    <strong>Đánh giá:</strong> {{$movie->getRatingStar()}} sao/{{$movie->getRatingCount()}} lượt
                                 </div>
                             </div>
                             <a href="">

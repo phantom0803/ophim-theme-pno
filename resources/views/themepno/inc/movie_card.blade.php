@@ -1,6 +1,6 @@
 <div class="popup" title="{{$movie->name}} - {{$movie->origin_name}} ({{$movie->publish_year}})">
     <div class="latest-movie-img-container lazy"
-        style="background-image: url('{{$movie->thumb_url}}'); display: inline-block;">
+        style="background-image: url('{{$movie->getThumbUrl()}}'); display: inline-block;">
         <div class="movie-img">
             <a href="{{$movie->getUrl()}}" class="ico-play ico-play-sm">
                 <svg version="1.1" id="play_sv" xmlns="http://www.w3.org/2000/svg"
