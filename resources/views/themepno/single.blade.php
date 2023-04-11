@@ -60,14 +60,6 @@
                                                                 đ/<span id="rate_count"> /
                                                                     {{$currentMovie->getRatingCount()}}</span> lượt)
                                                             </div>
-                                                            <meta itemprop="aggregateRating" itemscope
-                                                                itemtype="https://schema.org/AggregateRating" />
-                                                            <meta itemprop="ratingValue"
-                                                                content="{{$currentMovie->getRatingStar()}}" />
-                                                            <meta itemprop="ratingcount"
-                                                                content="{{$currentMovie->getRatingCount()}}" />
-                                                            <meta itemprop="bestRating" content="10" />
-                                                            <meta itemprop="worstRating" content="1" />
                                                         </div>
                                                         <div class="addthis_inline_share_toolbox_yl99 m-t-30 m-b-10"
                                                             data-url=""
